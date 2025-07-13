@@ -90,5 +90,20 @@ class ChallengeService
         ]);
     }
 
+    public function getUserChallenges()
+    {
+        $user = auth()->user();
+
+        $challenges = ChallengeParticipation::with('challenge')
+            ->where('user_id', $user->id)
+            ->whereHas('challenge') // pastikan relasi valid
+            ->orderBy('start_date', 'desc')
+            ->get();
+
+        return response()->json([
+            'ongoing' => $challenges->where('status', 'ongoing')->values(),
+            'completed' => $challenges->where('status', 'completed')->values(),
+        ]);
+    }
 
 }
