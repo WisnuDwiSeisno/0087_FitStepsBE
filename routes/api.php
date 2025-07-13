@@ -41,3 +41,8 @@ Route::middleware('auth:api')->prefix('challenges')->group(function () {
     Route::put('/{id}', [ChallengeController::class, 'update']); // ✅ Tambah
     Route::delete('/{id}', [ChallengeController::class, 'destroy']); // hapus challenge (mentor)
 });
+
+// Route to join a challenge, only accessible to authenticated users
+Route::middleware('auth:api')->prefix('challenges')->group(function () {
+    Route::post('{id}/join', [ChallengeController::class, 'join']);
+});
