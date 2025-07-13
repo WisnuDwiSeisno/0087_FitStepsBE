@@ -51,3 +51,7 @@ Route::middleware('auth:api')->prefix('challenges')->group(function () {
 Route::middleware('auth:api')->get('challenges/{id}/participants', [ChallengeController::class, 'participants']);
 
 
+// Route to unjoin a challenge, only accessible to authenticated users
+Route::middleware('auth:api')->delete('challenges/{id}/unjoin', [ChallengeController::class, 'unjoin']);
+
+
