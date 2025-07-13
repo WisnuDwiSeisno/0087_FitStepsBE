@@ -46,4 +46,15 @@ class ChallengeService
         return response()->json(['message' => 'Challenge created', 'data' => $challenge]);
     }
 
+    public function find($id)
+    {
+        $challenge = Challenge::with('creator')->find($id);
+
+        if (!$challenge) {
+            return response()->json(['error' => 'Challenge not found'], 404);
+        }
+
+        return response()->json($challenge);
+    }
+
 }
