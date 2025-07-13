@@ -32,3 +32,12 @@ Route::middleware('auth:api')->prefix('challenges')->group(function () {
 
 // Route to get challenge history, only accessible to authenticated users
 Route::middleware('auth:api')->get('challenges/history', [ChallengeController::class, 'history']);
+
+// Define API routes for challenges
+Route::middleware('auth:api')->prefix('challenges')->group(function () {
+    Route::get('/', [ChallengeController::class, 'index']);       // semua challenge
+    Route::post('/', [ChallengeController::class, 'store']);      // buat challenge (mentor)
+    Route::get('/{id}', [ChallengeController::class, 'show']);    // detail challenge
+    Route::put('/{id}', [ChallengeController::class, 'update']); // ✅ Tambah
+    Route::delete('/{id}', [ChallengeController::class, 'destroy']); // hapus challenge (mentor)
+});
