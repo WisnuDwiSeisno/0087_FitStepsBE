@@ -61,4 +61,6 @@ Route::middleware('auth:api')->prefix('steps')->group(function () {
     Route::post('/', [StepsController::class, 'store']);    // Tambah log
 });
 
+// Route to get weekly steps stats, only accessible to authenticated users
+Route::middleware('auth:api')->get('steps/weekly', [StepsController::class, 'weeklyStats']);
 
