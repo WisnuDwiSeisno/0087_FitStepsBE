@@ -64,3 +64,29 @@ Route::middleware('auth:api')->prefix('steps')->group(function () {
 // Route to get weekly steps stats, only accessible to authenticated users
 Route::middleware('auth:api')->get('steps/weekly', [StepsController::class, 'weeklyStats']);
 
+// Define API routes for tips
+Route::middleware('auth:api')->prefix('tips')->group(function () {
+    Route::get('/', [TipController::class, 'index']); // semua tips
+    Route::post('/', [TipController::class, 'store']); // hanya mentor
+    Route::put('{id}', [TipController::class, 'update']);   // ✅ update tip
+    Route::delete('{id}', [TipController::class, 'destroy']); // ✅ delete tip
+});
+
+// Route to get tips by category, only accessible to authenticated users
+Route::middleware('auth:api')->prefix('routes')->group(function () {
+    Route::post('/', [RouteLogController::class, 'store']);  // simpan rute
+    Route::get('/', [RouteLogController::class, 'index']);   // lihat semua rute user
+});
+
+// Route to get user profile, only accessible to authenticated users
+Route::middleware('auth:api')->get('profile', [UserController::class, 'profile']);
+Route::middleware('auth:api')->put('profile', [UserController::class, 'update']);
+
+
+// Define API routes for photo management
+Route::middleware('auth:api')->prefix('photos')->group(function () {
+    Route::post('/', [PhotoController::class, 'store']);
+    Route::get('/', [PhotoController::class, 'index']);
+});
+
+
