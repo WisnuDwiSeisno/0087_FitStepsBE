@@ -123,4 +123,12 @@ class ChallengeService
         return response()->json(['message' => 'Challenge berhasil diupdate', 'data' => $challenge]);
     }
 
+    public function delete($id)
+    {
+        $challenge = \App\Models\Challenge::findOrFail($id);
+        $challenge->delete();
+
+        return response()->json(['message' => 'Challenge berhasil dihapus']);
+    }
+
 }
