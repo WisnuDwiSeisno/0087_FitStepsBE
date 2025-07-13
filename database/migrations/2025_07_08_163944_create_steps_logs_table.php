@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('challenge_participations', function (Blueprint $table) {
+        Schema::create('steps_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->date('date');
+            $table->unsignedInteger('steps');
+            $table->float('distance_km')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('challenge_participations');
+        Schema::dropIfExists('steps_logs');
     }
 };

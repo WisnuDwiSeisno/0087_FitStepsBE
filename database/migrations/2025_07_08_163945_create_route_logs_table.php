@@ -13,8 +13,16 @@ return new class extends Migration
     {
         Schema::create('route_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('challenge_id')->nullable()->constrained()->onDelete('set null');
+            $table->date('date');
+            $table->json('path');
+            $table->float('distance_km');
+            $table->unsignedInteger('duration_min');
+            $table->float('avg_speed_kmh')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

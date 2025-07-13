@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('tips', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->foreignId('mentor_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**
