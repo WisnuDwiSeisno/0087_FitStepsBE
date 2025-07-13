@@ -23,3 +23,9 @@ Route::prefix('auth')->group(function () {
 
 // Route to get the dashboard, only accessible to authenticated users
 Route::middleware('auth:api')->get('dashboard', [DashboardController::class, 'index']);
+
+
+// Route to get user's challenges, only accessible to authenticated users
+Route::middleware('auth:api')->prefix('challenges')->group(function () {
+    Route::get('/my', [ChallengeController::class, 'myChallenges']);
+});
