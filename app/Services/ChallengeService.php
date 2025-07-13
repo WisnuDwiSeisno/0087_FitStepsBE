@@ -106,4 +106,21 @@ class ChallengeService
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $challenge = \App\Models\Challenge::findOrFail($id);
+
+        // Optional: validasi request
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'target_steps' => 'required|integer',
+            'duration_days' => 'required|integer',
+        ]);
+
+        $challenge->update($validated);
+
+        return response()->json(['message' => 'Challenge berhasil diupdate', 'data' => $challenge]);
+    }
+
 }
