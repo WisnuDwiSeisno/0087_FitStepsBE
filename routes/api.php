@@ -46,3 +46,8 @@ Route::middleware('auth:api')->prefix('challenges')->group(function () {
 Route::middleware('auth:api')->prefix('challenges')->group(function () {
     Route::post('{id}/join', [ChallengeController::class, 'join']);
 });
+
+// Route to get participants of a challenge, only accessible to authenticated users
+Route::middleware('auth:api')->get('challenges/{id}/participants', [ChallengeController::class, 'participants']);
+
+
