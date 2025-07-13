@@ -57,4 +57,38 @@ class ChallengeService
         return response()->json($challenge);
     }
 
+    public function joinChallenge($challengeId)
+    {
+        $user = auth()->user();
+
+        if ($user->role !== 'pelari') {
+            return response()->json(['error' => 'Only pelari can join challenges'], 403);
+        }
+
+        $challenge = Challenge::find($challengeId);
+        if (!$challenge) {
+            return response()->json(['error' => 'Challenge not found'], 404);
+        }
+
+        $exists = ChallengeParticipation::where('user_id', $user->id)
+            ->where('challenge_id', $challengeId)
+            ->exists();
+
+        if ($exists) {
+            return response()->json(['message' => 'Already joined this challenge']);
+        }
+
+        $participation = ChallengeParticipation::create([
+            'user_id' => $user->id,
+            'challenge_id' => $challengeId,
+            'start_date' => Carbon::now()->toDateString()
+        ]);
+
+        return response()->json([
+            'message' => 'Successfully joined challenge',
+            'data' => $participation
+        ]);
+    }
+
+
 }
