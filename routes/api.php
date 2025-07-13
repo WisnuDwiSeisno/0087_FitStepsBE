@@ -29,3 +29,6 @@ Route::middleware('auth:api')->get('dashboard', [DashboardController::class, 'in
 Route::middleware('auth:api')->prefix('challenges')->group(function () {
     Route::get('/my', [ChallengeController::class, 'myChallenges']);
 });
+
+// Route to get challenge history, only accessible to authenticated users
+Route::middleware('auth:api')->get('challenges/history', [ChallengeController::class, 'history']);
