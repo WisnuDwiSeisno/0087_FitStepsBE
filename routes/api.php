@@ -55,3 +55,10 @@ Route::middleware('auth:api')->get('challenges/{id}/participants', [ChallengeCon
 Route::middleware('auth:api')->delete('challenges/{id}/unjoin', [ChallengeController::class, 'unjoin']);
 
 
+// Route to get all steps logs, only accessible to authenticated users
+Route::middleware('auth:api')->prefix('steps')->group(function () {
+    Route::get('/', [StepsController::class, 'index']);     // Lihat semua log
+    Route::post('/', [StepsController::class, 'store']);    // Tambah log
+});
+
+
