@@ -20,3 +20,6 @@ Route::prefix('auth')->group(function () {
     Route::middleware('auth:api')->get('me', [AuthController::class, 'me']);
     Route::middleware('auth:api')->post('logout', [AuthController::class, 'logout']);
 });
+
+// Route to get the dashboard, only accessible to authenticated users
+Route::middleware('auth:api')->get('dashboard', [DashboardController::class, 'index']);
